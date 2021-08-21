@@ -11,6 +11,10 @@
 	<link rel='stylesheet' href='/build/bundle.css'>
 
 	<script defer src='/build/bundle.js'></script>
+	<script defer type='module'>
+		import init from './pokit/init.js';
+		window.pokitinit = init;
+	</script>
 </head>
 
 <body>
