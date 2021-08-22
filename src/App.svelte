@@ -2,23 +2,42 @@
 	import { onMount } from 'svelte';
 	import type init from './pokittypes/init'
 	import type { PokitOS } from './pokittypes/pokit';
-	export let name: string;
-	export let pokitinit: typeof init
 
+	// If we have this, then we have the world
 	let pokit: PokitOS
 	
+	// The kickoff function that tells the engine that
+	// it can go from loaded and ready to running
 	let kickoff: () => Promise<void>
-	let activated = false
 
+	// Our signal that the clasp button has been pressed.
+	// If a truthy answer is passed in as a prop, we
+	// act as though the clasp is pressed as soon as it
+	// is able
+	export let activated = false
+
+	// Reference to the provided canvas element
 	let canvas: HTMLCanvasElement
 
-	console.log(pokitinit)
-	let initret = pokitinit({canvas})
-
+	// Handle initialization after the component
+	// is fully mounted and everything is loaded. 
+	// We do it here because the canvas (which the engine
+	// requires) is not yet loaded before this point
 	onMount(async ()=>{
+		// Get the init function's namespace
+		let initns: any = await import('/pokit/init.js')
+		// and the function itself
+		let pokitinit = initns.default
+		// Run the init, which returns us two
+		// different things: the pokitOS object,
+		// and a function that tells the engine that
+		// it's ready to go from ready to running
 		let [one, two] = await pokitinit({canvas})
 		pokit = one as PokitOS
 		kickoff = two as () => Promise<void>
+		if (activated) {
+			clasp_button_press()
+		}
 	}) 
 
 	async function clasp_button_press() {

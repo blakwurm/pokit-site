@@ -1,12 +1,11 @@
 import App from './App.svelte';
 
-let pokitinit = window['pokitinit']
+let params = new URLSearchParams(window.location.search)
 
 const app = new App({
 	target: document.body,
 	props: {
-		name: 'world',
-		pokitinit
+		activated: params.has('noclasp')
 	}
 });
 
