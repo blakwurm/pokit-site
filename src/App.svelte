@@ -35,14 +35,25 @@
 		let [one, two] = await pokitinit({canvas})
 		pokit = one as PokitOS
 		kickoff = two as () => Promise<void>
+		// If the activated variable is already
+		// set to truthy, it means that we
+		// want to press that button for the user, like,
+		// right away
 		if (activated) {
 			clasp_button_press()
 		}
 	}) 
 
 	async function clasp_button_press() {
+		// We only want to do this if the kickoff
+		// variable is set, otherwise this is a no-op
 		if (kickoff) {
+			// We set the 'activated' variable to truth,
+			// signaling to the app that it should
+			// hide the clasp and take input and whatnot
 			activated=true
+			// Run the kickoff function, bringing the
+			// engine from 'ready' to 'running'
 			kickoff()
 		}
 	}
