@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rollup -c",
+    "submodule": "git submodule update --init",
     "build-engine": "npx tsc -p ./engine/site.json",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
