@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import type init from './pokittypes/init'
 	import type { PokitOS } from './pokittypes/pokit';
+	import Clasp from './Clasp.svelte'
 
 	// If we have this, then we have the world
 	let pokit: PokitOS
@@ -60,22 +61,33 @@
 
 </script>
 
-<div id='clasp-top' class:hidden={activated}>
+<!-- <div id='clasp-top' class:hidden={activated}>
 	<button class:active={kickoff} on:click="{clasp_button_press}">Y</button>
 </div>
-<div id='clasp-bottom' class:hidden={activated}></div>
+<div id='clasp-bottom' class:hidden={activated}></div> -->
 <main>
+	<Clasp kickoff={clasp_button_press} bind:activated></Clasp>
 	<canvas width=320 height=320 bind:this={canvas}></canvas>
 </main>
 
 <style>
 	main {
+		position:absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
 		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+		padding: 0;
+		margin: 0;
 	}
-	#clasp-top, #clasp-bottom {
+	canvas {
+		position: absolute;
+		top: 0;
+		left: calc(50vw - 160px);
+		border: 3px double black;
+	}
+	/* #clasp-top, #clasp-bottom {
 		position: fixed;
 		width: 100%;
 		background-color: transparent;
@@ -123,7 +135,7 @@
 	}
 	#clasp-top button.active {
 		background-image: url('../img/button_green.svg');
-	}
+	} */
 
 	h1 {
 		color: #ff3e00;
