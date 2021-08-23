@@ -46,12 +46,13 @@
         display: inline-block;
         width: calc(var(--one-width) - 6px);
         height: calc(var(--one-height) - 6px);
-        background-color: rgba(102, 51, 153, 0.8);
+        background-color: rgba(102, 51, 153, 0.6);
         border: 3px inset grey;
   		transition: top 1s, bottom 1s, left 1s, right 1s, border-radius 1s;
         transition-timing-function: ease-in;
         padding: 0;
         margin: 0;
+        backdrop-filter: blur(2px);
     }
     #panels.active div {
         border-radius: 30vmin;
