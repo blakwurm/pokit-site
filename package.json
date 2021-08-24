@@ -6,7 +6,9 @@
     "build": "rollup -c",
     "submodule": "git submodule update --init",
     "copy-engine-assets": "node ./engine/scripts/copy-assets.js engine/source/pokit \"**/*[!.ts]\" ./public/pokit",
-    "build-engine": "npx tsc -p ./engine/site.json && npm run copy-engine-assets",
+    "setup-engine-depends": "cd engine && npm install && cd ../",
+    "build-engine": "npm run setup-engine-depends && npx tsc -p ./engine/site.json && npm run copy-engine-assets",
+    "postinstall": "npm run submodule && npm run build-engine && npm run build",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
     "check": "svelte-check --tsconfig ./tsconfig.json"
