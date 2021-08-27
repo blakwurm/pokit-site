@@ -3,6 +3,8 @@
 	import type init from './pokittypes/init'
 	import type { PokitOS } from './pokittypes/pokit';
 	import Clasp from './Clasp.svelte'
+	import Screen from './Screen.svelte'
+	import Input from './Input.svelte'
 
 	// If we have this, then we have the world
 	let pokit: PokitOS
@@ -16,6 +18,10 @@
 	// act as though the clasp is pressed as soon as it
 	// is able
 	export let activated = false
+
+	// Flag to let us know if the system is in error, which will
+	// display the appropriate error lights etc
+	export let is_error = false
 
 	// Reference to the provided canvas element
 	let canvas: HTMLCanvasElement
@@ -67,7 +73,11 @@
 <div id='clasp-bottom' class:hidden={activated}></div> -->
 <main>
 	<Clasp kickoff={clasp_button_press} bind:activated></Clasp>
-	<canvas width=320 height=320 bind:this={canvas}></canvas>
+	<Screen bind:activated bind:canvas bind:is_error></Screen>
+	<Input bind:pokit={pokit}></Input>
+	<div id="backmask"></div>
+
+
 </main>
 
 <style>
@@ -81,67 +91,17 @@
 		padding: 0;
 		margin: 0;
 	}
-	canvas {
+
+	#backmask {
 		position: absolute;
 		top: 0;
-		left: calc(50vw - 160px);
-		border: 3px double black;
-	}
-	/* #clasp-top, #clasp-bottom {
-		position: fixed;
-		width: 100%;
-		background-color: transparent;
-		background-image: url('../img/clasp.svg');
-		background-repeat: no-repeat;
-		background-size: cover;
-		z-index: 1000;
-  		transition: top 1s, bottom 1s, left 1s, right 1s;
-	}
-	#clasp-top {
-		top: 0;
+		left: 0;
 		right: 0;
-		left: 0;
-		bottom: 45vh;
-		background-position: bottom;
-		z-index: 2100;
-	}
-	#clasp-top.hidden {
-		top: -50vh;
-		bottom: 100vh;
-	}
-	#clasp-bottom {
-		top:14vh;
-		right:0;
-		left: 0;
 		bottom: 0;
-		background-position: top;
-	}
-	#clasp-bottom.hidden {
-		top: 100vh;
-		bottom: -14vh;
-	}
-	#clasp-top button {
-		position: relative;
-		top: 25vh;
-		left: 40vw;
-		width: 20vw;
-		height: 20vw;
-		background-image: url('../img/button_red.svg');
-		background-color: transparent;
-		background-size: contain;
-		background-repeat: no-repeat;
-		border: none;
-		color: transparent;
-	}
-	#clasp-top button.active {
-		background-image: url('../img/button_green.svg');
-	} */
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
+		background-color: hsla(0, 75%, 40%, 0.4);
+		filter: hue-rotate(var(--theme-hue));
+		backdrop-filter: blur(2px);
+		z-index: 0;
 	}
 
 	@media (min-width: 640px) {

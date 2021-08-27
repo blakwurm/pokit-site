@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="SVGRoot" width="300px" height="300px" version="1.1" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient12785" x1="15" x2="290" y1="15" y2="290" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#333" offset="0"/>
+   <stop offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient12801" x1="30" x2="270" y1="30" y2="270" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#252525" offset="0"/>
+   <stop stop-color="#050505" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient12811" x1="30" x2="270" y1="30" y2="270" gradientUnits="userSpaceOnUse">
+   <stop offset="0"/>
+   <stop stop-color="#2b2b2b" offset="1"/>
+  </linearGradient>
+  <radialGradient id="radialGradient12823" cx="267.5" cy="282.5" r="3.7" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#676767" offset="0"/>
+   <stop stop-opacity=".57742" offset="1"/>
+  </radialGradient>
+  <linearGradient id="linearGradient12836" x1="10" x2="285" y1="10" y2="295" gradientTransform="matrix(.98107 0 0 .9824 2.8584 2.7123)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ff0606" offset="0"/>
+   <stop stop-color="#f10000" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient12848" x1="13.75" x2="286.65" y1="13.661" y2="296.34" gradientTransform="matrix(.98107 0 0 .9824 2.8584 2.7123)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ff2d2d" offset="0"/>
+   <stop stop-color="#b70000" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient10850" x1="5.6888" x2=".74372" y1="7.8168" y2="7.7385" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient10856"/>
+  <linearGradient id="linearGradient10856">
+   <stop stop-color="#fff" stop-opacity=".55276" offset="0"/>
+   <stop stop-opacity="0" offset="1"/>
+  </linearGradient>
+  <filter id="filter10846" x="-.01581" y="-.014567" width="1.0316" height="1.0291" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.034854588"/>
+  </filter>
+  <linearGradient id="linearGradient10850-3" x1="3.3768" x2="8.1864" y1="8.4781" y2="7.6985" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient10856"/>
+  <filter id="filter10846-3" x="-.01581" y="-.014567" width="1.0316" height="1.0291" color-interpolation-filters="sRGB">
+   <feGaussianBlur stdDeviation="0.034854588"/>
+  </filter>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g>
+  <rect x="25" y="25" width="250" height="250" ry="5" stroke="#000" stroke-width="2.4" style="paint-order:stroke fill markers"/>
+  <rect x="17.575" y="17.448" width="264.89" height="275.07" ry="12.415" fill="none" opacity=".19355" stroke="url(#linearGradient12836)" stroke-width="2.3562" style="mix-blend-mode:darken;paint-order:stroke fill markers"/>
+  <rect x="16.348" y="16.133" width="267.74" height="277.7" ry="14.343" fill="none" opacity=".19355" stroke="url(#linearGradient12848)" stroke-width="2.3562" style="mix-blend-mode:darken;paint-order:stroke fill markers"/>
+ </g>
+ <g fill="none" stroke-width="2.4">
+  <rect x="25" y="25" width="250" height="250" ry="5" stroke="url(#linearGradient12811)" style="paint-order:stroke fill markers"/>
+  <circle cx="267.5" cy="282.5" r="2.5" stroke="url(#radialGradient12823)" style="paint-order:stroke fill markers"/>
+ </g>
+ <g>
+  <path d="m30 20c-5.54 0-10 4.46-10 10v250c0 5.54 4.46 10 10 10h240c5.54 0 10-4.46 10-10v-250c0-5.54-4.46-10-10-10zm0 5h240c2.77 0 5 2.23 5 5v240c0 2.77-2.23 5-5 5h-240c-2.77 0-5-2.23-5-5v-240c0-2.77 2.23-5 5-5zm237.5 255c1.385 0 2.5 1.115 2.5 2.5s-1.115 2.5-2.5 2.5-2.5-1.115-2.5-2.5 1.115-2.5 2.5-2.5z" fill="url(#linearGradient12801)" style="paint-order:fill markers stroke"/>
+ </g>
+ <rect x="20" y="20" width="260" height="270" ry="10" fill="none" stroke="url(#linearGradient12785)" stroke-width="2.6" style="paint-order:stroke fill markers"/>
+ <g>
+  <path transform="matrix(-1.1139 1.1841 -1.059 -1.21 36.156 28.535)" d="m8.028 5.6144c-0.68985 2.4016-1.638 3.2756-3.2591 3.4402-1.6841 0.17099-2.3753-0.3344-4.6103-2.7621 1.3921 0.49566 2.728 1.4042 4.0522 1.3241 0.94623-0.057237 2.4267-0.37332 3.8171-2.0022z" fill="url(#linearGradient10850)" filter="url(#filter10846)" style="mix-blend-mode:screen;paint-order:stroke fill markers"/>
+  <path transform="matrix(1.1139 -1.1841 1.059 1.21 258.95 267.65)" d="m8.028 5.6144c-1.0688 2.2522-1.533 3.3401-3.1572 3.5122-1.7565 0.18611-3.66-1.1858-4.1164-3.3026 2.1096 2.1017 2.4223 2.6331 3.7516 2.5888 1.3453-0.044876 1.4132-0.71951 3.522-2.7984z" fill="url(#linearGradient10850-3)" filter="url(#filter10846-3)" style="mix-blend-mode:screen;paint-order:stroke fill markers"/>
+ </g>
+</svg>

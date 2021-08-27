@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="SVGRoot" width="30px" height="30px" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <defs>
+  <filter id="filter5961" color-interpolation-filters="sRGB">
+   <feGaussianBlur in="SourceAlpha" result="result0" stdDeviation="0.01"/>
+   <feMorphology in="SourceAlpha" radius="1.5503875968992249" result="result1"/>
+   <feGaussianBlur in="result1" stdDeviation="0.01"/>
+   <feColorMatrix result="result91" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.3 0"/>
+   <feComposite in="result0" in2="result91" operator="out" result="result2"/>
+   <feGaussianBlur result="result4" stdDeviation="1.5723437499999999"/>
+   <feDiffuseLighting surfaceScale="10">
+    <feDistantLight azimuth="225" elevation="45"/>
+   </feDiffuseLighting>
+   <feBlend in2="SourceGraphic" mode="multiply"/>
+   <feComposite in2="SourceAlpha" operator="in" result="result3"/>
+   <feSpecularLighting in="result4" specularExponent="17.9" surfaceScale="5">
+    <feDistantLight azimuth="225" elevation="45"/>
+   </feSpecularLighting>
+   <feComposite in2="result3" operator="atop"/>
+   <feGaussianBlur stdDeviation="0.10000000000000001"/>
+  </filter>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <circle cx="15" cy="15" r="13.916" fill="#7f6f6f" fill-opacity=".92339" filter="url(#filter5961)" stroke-opacity="0" style="paint-order:fill markers stroke"/>
+</svg>

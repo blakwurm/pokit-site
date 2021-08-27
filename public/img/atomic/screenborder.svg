@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="SVGRoot" width="380px" height="380px" version="1.1" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <defs>
+  <filter id="filter5828-5" color-interpolation-filters="sRGB">
+   <feColorMatrix in="SourceGraphic" result="color" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.85 0"/>
+   <feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="0.628743"/>
+   <feSpecularLighting lighting-color="#ffffff" in="blur" result="specular" specularConstant="1.15269005" specularExponent="25" surfaceScale="5">
+    <feDistantLight azimuth="218" elevation="46"/>
+   </feSpecularLighting>
+   <feComposite in="specular" in2="SourceGraphic" k2="1" k3="1" operator="arithmetic" result="composite1"/>
+   <feComposite in="composite1" in2="color" operator="atop" result="composite2"/>
+  </filter>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g>
+  <path d="m10.016 10c-5.5489 0-10.016 4.4667-10.016 10.016v349.97c0 5.5489 4.4667 10.016 10.016 10.016h359.97c5.5489 0 10.016-4.4667 10.016-10.016v-349.97c0-5.5489-4.4667-10.016-10.016-10.016h-359.97zm20 10h319.97c5.5489 0 10.016 4.4667 10.016 10.016v319.97c0 5.5489-4.4667 10.016-10.016 10.016h-319.97c-5.5489 0-10.016-4.4667-10.016-10.016v-319.97c0-5.5489 4.4667-10.016 10.016-10.016zm339.98 46.518a6.6071 6.6071 0 0 1 0.00391 0 6.6071 6.6071 0 0 1 6.6074 6.6074 6.6071 6.6071 0 0 1-6.6074 6.6074 6.6071 6.6071 0 0 1-6.6074-6.6074 6.6071 6.6071 0 0 1 6.6035-6.6074z" fill-opacity=".68145"/>
+  <path d="m10.016 10c-5.5489 0-10.016 4.4667-10.016 10.016v349.97c0 5.5489 4.4667 10.016 10.016 10.016h359.97c5.5489 0 10.016-4.4667 10.016-10.016v-349.97c0-5.5489-4.4667-10.016-10.016-10.016zm20 10h319.97c5.5489 0 10.016 4.4667 10.016 10.016v319.97c0 5.5489-4.4667 10.016-10.016 10.016h-319.97c-5.5489 0-10.016-4.4667-10.016-10.016v-319.97c0-5.5489 4.4667-10.016 10.016-10.016zm339.98 49.285a3.8393 3.8393 0 0 1 3.8398 3.8398 3.8393 3.8393 0 0 1-3.8398 3.8398 3.8393 3.8393 0 0 1-3.8398-3.8398 3.8393 3.8393 0 0 1 3.8398-3.8398z" fill="#670000" filter="url(#filter5828-5)"/>
+ </g>
+</svg>

@@ -32,6 +32,7 @@
         --two-height: 66.666vh;
         --one-width: 33.333vw;
         --two-width: 66.666vw;
+        pointer-events: none;
     }
     #panels.active {
         /* top: -50vh;
@@ -53,6 +54,7 @@
         padding: 0;
         margin: 0;
         backdrop-filter: blur(2px);
+        pointer-events: all;
     }
     #panels.active div {
         border-radius: 30vmin;
