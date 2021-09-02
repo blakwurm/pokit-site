@@ -2,6 +2,7 @@
     import type { PokitOS } from "./pokittypes/pokit";
 	import { onMount } from 'svelte';
     import Button from './Button.svelte'
+    import {ButtonGroup, FaceButtonGroup} from './buttongroups'
     export let pokit: PokitOS
     let inputmap = new Map<string, number>()
 
@@ -34,6 +35,7 @@
         ]
     }
 
+
     function ondown(btnname: string, ev: MouseEvent) {
         console.log(btnname, 'down')
     }
@@ -59,21 +61,32 @@
     }
 
 
+    let handlers = new Map<string, ButtonGroup>()
+
+    handlers.set('facebuttons', new FaceButtonGroup(inputmap))
+    handlers.set('dpad', new ButtonGroup(inputmap))
+
+    let dpad_handlers = {
+
+    }
+
+
 </script>
 
 <div id="inputsurface"
     on:mouseup={onsurfaceup}
 
 >
+
     {#each Object.entries(buttons) as buttongroup}
         <div id={buttongroup[0]} class="buttongroup">
             {#each buttongroup[1] as button}
                 <div class="buttoncontainer {button[1]}">
                     <button
-                        on:mousedown={(ev) => ondown(button[1], ev)}
-                        on:mouseup={(ev) => onup(button[1], ev)}
-                        on:mouseenter={(ev) => onenter(button[1], ev)}
-                        on:mouseleave={(ev) => onleave(button[1], ev)}
+                        on:mousedown={(ev) => handlers.get(buttongroup[0]).down(button[1], ev)}
+                        on:mouseup={(ev) => handlers.get(buttongroup[0]).up(button[1], ev)}
+                        on:mouseenter={(ev) => handlers.get(buttongroup[0]).enter(button[1], ev)}
+                        on:mouseleave={(ev) => handlers.get(buttongroup[0]).leave(button[1], ev)}
                     >{button[0]}</button>
                 </div>
             {/each}
