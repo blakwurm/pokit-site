@@ -2,11 +2,12 @@
     import type { PokitOS } from "./pokittypes/pokit";
 	import { onMount } from 'svelte';
     import Button from './Button.svelte'
-    import {ButtonGroup, FaceButtonGroup} from './buttongroups'
+    import {ButtonGroup, FaceButtonGroup, DPadGroup} from './buttongroups'
     export let pokit: PokitOS
     let inputmap = new Map<string, number>()
 
     $: inputmap = pokit?.modules.get('input') as Map<string, number>
+    $: console.log(inputmap)
 
     let buttons = {
         "dpad": [
@@ -35,36 +36,11 @@
         ]
     }
 
-
-    function ondown(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'down')
-    }
-
-    function onup(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'up')
-    }
-
-    function onsurfaceup(ev: MouseEvent) {
-        console.log('general up')
-    }
-
-    function onover(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'over')
-    }
-
-    function onenter(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'enter')
-    }
-
-    function onleave(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'leave')
-    }
-
-
     let handlers = new Map<string, ButtonGroup>()
 
     handlers.set('facebuttons', new FaceButtonGroup(inputmap))
-    handlers.set('dpad', new ButtonGroup(inputmap))
+    handlers.set('dpad', new DPadGroup(inputmap))
+    handlers.set('optbuttons', new ButtonGroup(inputmap))
 
     let dpad_handlers = {
 
@@ -73,13 +49,14 @@
 
 </script>
 
-<div id="inputsurface"
-    on:mouseup={onsurfaceup}
-
->
+<div id="inputsurface">
 
     {#each Object.entries(buttons) as buttongroup}
-        <div id={buttongroup[0]} class="buttongroup">
+        <div id={buttongroup[0]} class="buttongroup"
+        on:mouseup={ev=>handlers.get(buttongroup[0]).groupleave(ev)}
+        on:mouseleave={ev=>handlers.get(buttongroup[0]).groupleave(ev)}
+        on:mousedown={ev=>handlers.get(buttongroup[0]).groupdown(ev)}
+        >
             {#each buttongroup[1] as button}
                 <div class="buttoncontainer {button[1]}">
                     <button
@@ -107,7 +84,8 @@
 
     .buttongroup {
         position: absolute;
-        border: blue 1px solid;
+        /* border: blue 1px solid; */
+        border: none;
     }
 
     .buttongroup .buttoncontainer {
@@ -146,6 +124,9 @@
         left: 0;
         right: 0;
         bottom: 0;
+        background: transparent;
+        border: none;
+        color: transparent;
     }
     /* #dpad .up {
         top: 0;

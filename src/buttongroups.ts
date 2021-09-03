@@ -20,6 +20,61 @@
         }
     }
 
+    let dpad_triggers = new Map(Object.entries({
+        'up': ['up'],
+        'down': ['down'],
+        'left': ['left'],
+        'right': ['right'],
+        'upright': ['up', 'right'],
+        'upleft': ['up', 'left'],
+        'downright': ['down', 'right'],
+        'downleft': ['down', 'left'],
+        'dead': []
+    }))
+
+    export class DPadGroup extends ButtonGroup {
+        pressed = false
+        press(btnname, val) {
+            let triggers = dpad_triggers.get(btnname)
+            for (let trigger of triggers) {
+                this.inputmap.set(trigger, val)
+                console.log(trigger, 'is now', val)
+                console.log(this.inputmap.get(trigger))
+            }
+        }
+        up (btnname: string, ev: MouseEvent) {
+            this.press(btnname, 0)
+            this.pressed = false
+        }
+        down (btnname: string, ev: MouseEvent) {
+            this.press(btnname, 1)
+        }
+        enter (btnname: string, ev: MouseEvent) {
+            if (this.pressed) {
+                this.press(btnname, 1)
+            }
+        }
+        leave (btnname: string, ev: MouseEvent) {
+            if (this.pressed) {
+                this.press(btnname, 0)
+            }
+        }
+        groupleave (ev: MouseEvent) {
+            if (this.pressed) {
+                this.press('left', 0)
+                this.press('right', 0)
+                this.press('up', 0)
+                this.press('down', 0)
+                this.pressed = false
+                console.log('up done')
+            }
+        }
+        groupdown (ev: MouseEvent) {
+            this.pressed = true
+            console.log('down done')
+        }
+    }
+
     export class FaceButtonGroup extends ButtonGroup {
 
         _primary?: string = null
@@ -76,6 +131,7 @@
         groupleave (ev: MouseEvent) {
             this.primary = null
             this.secondary = null
+            this.grouppressed = false
         }
         groupdown (ev: MouseEvent) {
             this.grouppressed = true
