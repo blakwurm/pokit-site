@@ -4,10 +4,14 @@
     import Button from './Button.svelte'
     import {ButtonGroup, FaceButtonGroup, DPadGroup} from './buttongroups'
     export let pokit: PokitOS
-    let inputmap = new Map<string, number>()
+    let inputmap: Map<string, number>
 
     $: inputmap = pokit?.modules.get('input') as Map<string, number>
     $: console.log(inputmap)
+
+    function loop() {
+        
+    }
 
     let buttons = {
         "dpad": [
@@ -38,9 +42,9 @@
 
     let handlers = new Map<string, ButtonGroup>()
 
-    handlers.set('facebuttons', new FaceButtonGroup(inputmap))
-    handlers.set('dpad', new DPadGroup(inputmap))
-    handlers.set('optbuttons', new ButtonGroup(inputmap))
+    $: handlers.set('facebuttons', new FaceButtonGroup(inputmap))
+    $: handlers.set('dpad', new DPadGroup(inputmap))
+    $: handlers.set('optbuttons', new ButtonGroup(inputmap))
 
     let dpad_handlers = {
 
