@@ -1,18 +1,37 @@
 <script lang="ts">
+    import Settings from './drawertabs/Settings.svelte'
+    import Joypad from './drawertabs/Joypad.svelte'
+    import Chat from './drawertabs/Chat.svelte'
+    import Gameinfo from './drawertabs/Gameinfo.svelte'
     export let hidden = false
+
+    let tabs = {
+        'gameinfo':  {name: "Gameinfo", display: "ℹ️", component: Gameinfo},
+        'chat':  {name: "Chat", display: "💬", component: Chat},
+        'settings':  {name: "Settings", display: "⚙️", component: Settings},
+        'joypad':  {name: "Joypad", display: "🎮", component: Joypad},
+    }
+
+    let selected_tab = 'settings' 
 </script>
 
 <div id="drawer" class:hidden>
     <div id="drawerinner">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat laoreet ligula, ac finibus urna porttitor sed. Nam in vestibulum dolor, nec cursus arcu. Ut auctor, sem eu varius tristique, nunc nibh malesuada felis, vel mollis erat ligula nec lorem. Proin ac ex ut elit dapibus condimentum quis a mi. Nullam a erat quis elit pretium pretium. Sed nec turpis accumsan elit egestas faucibus et ut velit. Nunc quis sodales dolor. Praesent ante sem, pellentesque et aliquam ut, rhoncus ut ex.
-
-Morbi eleifend erat eu nibh consectetur mollis. Nulla egestas consequat consectetur. Ut ante diam, sollicitudin sed lacinia vel, vestibulum vitae tortor. Vestibulum vitae sollicitudin augue. Nullam arcu nibh, posuere vel sapien ut, maximus maximus tellus. Suspendisse potenti. Duis iaculis felis at sapien cursus ullamcorper. Sed nunc leo, rhoncus sit amet congue non, molestie ut sem.
-
-Nam condimentum nisi vitae hendrerit faucibus. Ut at dictum urna, vel tristique elit. Sed viverra mattis mattis. Nulla facilisi. Aliquam erat volutpat. Sed volutpat vitae arcu in tincidunt. Phasellus hendrerit purus in risus efficitur dignissim. Mauris ultrices tempor eros ac imperdiet. Nulla gravida et felis ut euismod. Aenean aliquet vel risus et pellentesque. Nunc vitae nulla tempor, euismod ligula a, eleifend eros. Sed rhoncus sit amet nisl sed rhoncus. Vivamus euismod ipsum sed nisl finibus varius. Mauris nec eros ante.
-
-Donec sodales convallis elit non ullamcorper. Cras dapibus cursus eros, eu efficitur lectus efficitur vel. In semper in massa eu ultricies. Curabitur neque libero, porta eu finibus quis, dapibus at lorem. Nam viverra elit quis orci sodales, ornare consequat dolor consectetur. Proin suscipit odio a eros vulputate fringilla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis rhoncus at magna id dictum. Fusce porta turpis viverra cursus mattis. Nulla dolor massa, accumsan eu pharetra eu, auctor quis diam. Nunc quis sem tempor, faucibus lorem a, scelerisque est. Quisque bibendum elit sed aliquet ullamcorper. Mauris odio tortor, dictum id leo ac, iaculis euismod tortor. Mauris pharetra porta congue.
-
-Duis ac consequat risus. Duis interdum diam vel ultricies vulputate. Nullam quis vulputate enim, quis posuere libero. Morbi eget orci eget eros fringilla molestie id ac libero. Ut nisl elit, tincidunt vitae quam at, porta bibendum turpis. Etiam et massa mollis, ultrices erat sit amet, aliquam quam. Curabitur sapien tortor, auctor id mauris sit amet, fermentum imperdiet arcu. Sed laoreet ligula in sapien blandit interdum.
+        <ul>
+            {#each Object.entries(tabs) as tab}
+                <li>
+                    <button
+                        class:selected={tab[0] === selected_tab}
+                        on:click="{ev=>selected_tab=tab[0]}"
+                        >
+                        {tab[1].display}
+                    </button>
+                </li>
+            {/each}
+        </ul>
+        <div class="comp-container">
+            <svelte:component this={tabs[selected_tab].component} />
+        </div>
     </div>
     <button id="drawertoggle" on:click="{(ev)=>hidden = !hidden}"> <span> ⚙ </span></button>
 </div>
@@ -62,7 +81,7 @@ Duis ac consequat risus. Duis interdum diam vel ultricies vulputate. Nullam quis
          top: 12vmin;
          border-radius: 4vmin;
          overflow-x: scroll;
-         box-shadow: inset 0 0 10px #000000;
+         /* box-shadow: inset 0 0 10px #000000; */
          z-index: 10000;
      }
      #drawertoggle {
@@ -82,5 +101,32 @@ Duis ac consequat risus. Duis interdum diam vel ultricies vulputate. Nullam quis
          left: 1vmin;
          font-size: 10vmin;
 
+     }
+
+     #drawerinner ul {
+         display: flex;
+         justify-content: center;
+         padding: 0;
+         margin: 1vmin 0;
+     }
+
+     #drawerinner ul li {
+         list-style: none;
+         padding: 0;
+         margin: 0;
+     }
+
+     #drawerinner ul li button{
+         height: 10vmin;        
+         min-width: 15vmin;
+         font-size: 8vmin;
+         padding: 0;
+         margin: 0;
+         background: none;
+         border: none;
+         border-bottom: 1px solid black;
+     }
+     #drawerinner ul li button.selected{
+        border-bottom: 3px solid black;
      }
 </style>
