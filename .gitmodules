@@ -1,3 +1,4 @@
-[submodule "pokit-reboot"]
+[submodule "engine"]
 	path = engine
 	url = https://github.com/blakwurm/pokit-reboot.git
+	branch = main
