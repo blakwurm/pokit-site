@@ -4,19 +4,19 @@
             this.inputmap = inputmap
         }
         inputmap: Map<string, number>
-        up (btnname: string, ev: MouseEvent) {
+        up (btnname: string) {
             this.inputmap.set(btnname, 0)
         }
-        down (btnname: string, ev: MouseEvent) {
+        down (btnname: string) {
             this.inputmap.set(btnname, 1)
         }
-        enter (btnname: string, ev: MouseEvent) {
+        enter (btnname: string) {
         }
-        leave (btnname: string, ev: MouseEvent) {
+        leave (btnname: string) {
         }
-        groupleave (ev: MouseEvent) {
+        groupleave () {
         }
-        groupdown (ev: MouseEvent) {
+        groupdown () {
         }
     }
 
@@ -36,30 +36,33 @@
         pressed = false
         press(btnname, val) {
             let triggers = dpad_triggers.get(btnname)
+            console.log(this.inputmap)
+            console.log(btnname)
             for (let trigger of triggers) {
                 this.inputmap.set(trigger, val)
                 console.log(trigger, 'is now', val)
                 console.log(this.inputmap.get(trigger))
             }
         }
-        up (btnname: string, ev: MouseEvent) {
+        up (btnname: string) {
             this.press(btnname, 0)
             this.pressed = false
         }
-        down (btnname: string, ev: MouseEvent) {
+        down (btnname: string) {
             this.press(btnname, 1)
+            this.pressed = true
         }
-        enter (btnname: string, ev: MouseEvent) {
+        enter (btnname: string) {
             if (this.pressed) {
                 this.press(btnname, 1)
             }
         }
-        leave (btnname: string, ev: MouseEvent) {
+        leave (btnname: string) {
             if (this.pressed) {
                 this.press(btnname, 0)
             }
         }
-        groupleave (ev: MouseEvent) {
+        groupleave () {
             if (this.pressed) {
                 this.press('left', 0)
                 this.press('right', 0)
@@ -69,7 +72,7 @@
                 console.log('up done')
             }
         }
-        groupdown (ev: MouseEvent) {
+        groupdown () {
             this.pressed = true
             console.log('down done')
         }
@@ -108,14 +111,14 @@
 
         grouppressed = false 
 
-        up (btnname: string, ev: MouseEvent) {
-            this.groupleave(ev)
+        up (btnname: string) {
+            this.groupleave()
         }
-        down (btnname: string, ev: MouseEvent) {
+        down (btnname: string) {
             this.primary = btnname
             this.secondary = null
         }
-        enter (btnname: string, ev: MouseEvent) {
+        enter (btnname: string) {
             if (this.primary && this.primary != btnname) {
                 this.secondary = btnname
             }
@@ -123,17 +126,17 @@
                 this.down(btnname, ev)
             }
         }
-        leave (btnname: string, ev: MouseEvent) {
+        leave (btnname: string) {
             if (btnname === this.secondary) {
                 this.secondary = null
             }
         }
-        groupleave (ev: MouseEvent) {
+        groupleave () {
             this.primary = null
             this.secondary = null
             this.grouppressed = false
         }
-        groupdown (ev: MouseEvent) {
+        groupdown () {
             this.grouppressed = true
         }
     }
