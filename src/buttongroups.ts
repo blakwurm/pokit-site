@@ -123,7 +123,7 @@
                 this.secondary = btnname
             }
             if (this.grouppressed && !this.primary) {
-                this.down(btnname, ev)
+                this.down(btnname)
             }
         }
         leave (btnname: string) {
