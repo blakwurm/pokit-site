@@ -34,6 +34,7 @@ Duis ac consequat risus. Duis interdum diam vel ultricies vulputate. Nullam quis
          border-image-width: 20vmin;
          transition: left 1s;
          filter: hue-rotate(var(--theme-hue)) drop-shadow(0 0 0.75rem rgb(44, 44, 44));
+         pointer-events: auto;
      }
      #drawer.hidden {
         left: calc(100vw - 5vmin);
@@ -61,8 +62,8 @@ Duis ac consequat risus. Duis interdum diam vel ultricies vulputate. Nullam quis
          top: 12vmin;
          border-radius: 4vmin;
          overflow-x: scroll;
-         pointer-events: all;
-         box-shadow:         inset 0 0 10px #000000;
+         box-shadow: inset 0 0 10px #000000;
+         z-index: 10000;
      }
      #drawertoggle {
          position: absolute;
