@@ -6,6 +6,10 @@
 	import Screen from './Screen.svelte'
 	import Input from './Input.svelte'
 	import Drawer from './Drawer.svelte'
+	import {atomic_hue} from './sitesettings.js'
+
+	console.log(atomic_hue)
+	$: document.body.style.setProperty('--theme-hue', $atomic_hue+'deg')
 
 	// If we have this, then we have the world
 	let pokit: PokitOS
