@@ -1,6 +1,11 @@
 <script lang="ts">
     export let activated = false
     export let kickoff: () => Promise<void>
+        function foo() {
+            console.log('kickoff now')
+            kickoff()
+            console.log('kickoff then')
+        }
 
 </script>
 
@@ -9,7 +14,7 @@
         <div id="panel-1"></div>
         <div id="panel-2"></div>
         <div id="panel-3"></div>
-        <button id="activator" on:click={kickoff}></button>
+        <button id="activator" on:pointerdown={foo}></button>
         <div id="panel-5"></div>
         <div id="panel-6"></div>
         <div id="panel-7"></div>

@@ -3,9 +3,12 @@
 </script>
 
 <div>Hi</div>
-<label for="atomic-hue-modifier">Atomic Hue</label>
-<span>{$atomic_hue}</span>
-<input id="atomic-hue-modifier" type="range" min="0" max="360" bind:value={$atomic_hue}>
+<div id="setters">
+    <div class="setting-setter">
+        <label for="atomic-hue-modifier">Atomic Hue</label>
+        <input id="atomic-hue-modifier" type="range" min="0" max="360" bind:value={$atomic_hue}>
+    </div>
+</div>
 
 <style>
     #atomic-hue-modifier {
