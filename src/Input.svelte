@@ -2,10 +2,16 @@
     import type { PokitOS } from "./pokittypes/pokit";
 	import { onMount } from 'svelte';
     import Button from './Button.svelte'
+    import {ButtonGroup, FaceButtonGroup, DPadGroup} from './buttongroups'
     export let pokit: PokitOS
-    let inputmap = new Map<string, number>()
+    let inputmap: Map<string, number>
 
     $: inputmap = pokit?.modules.get('input') as Map<string, number>
+    $: console.log(inputmap)
+
+    function loop() {
+        
+    }
 
     let buttons = {
         "dpad": [
@@ -34,46 +40,115 @@
         ]
     }
 
-    function ondown(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'down')
+    function name_from_id(elem: Element) {
+        return elem?.id.split('button-')[1]
     }
 
-    function onup(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'up')
+    class PointerOverlay {
+        constructor(grouphandlers: ButtonGroup) {
+            this.grouphandlers = grouphandlers
+        }
+
+        grouphandlers: ButtonGroup
+        last_elem: Element
+        current_id: number
+
+        down(ev: PointerEvent) {
+            this.current_id = ev.pointerId
+            this.last_elem = ev.target as HTMLElement
+            let name = name_from_id(ev.target as Element)
+            if (name) {
+                this.grouphandlers.down(name)
+            }
+        }
+
+        up(ev: PointerEvent) {
+                let elem = document.elementFromPoint(ev.clientX, ev.clientY)
+                let name = name_from_id(elem)
+                if (name) {
+                    this.grouphandlers.up(name)
+                }
+                this.current_id = null
+                this.last_elem = null
+
+        }
+
+        leave(ev: PointerEvent) {
+            this.up(ev)
+        }
+
+        move(ev: PointerEvent) {
+                let x = ev.clientX
+                let y = ev.clientY
+                let elem = document.elementFromPoint(x,y)
+                if (this.last_elem != elem) {
+                    let old_name = name_from_id(this.last_elem)                
+                    if (old_name) {
+                        this.grouphandlers.leave(old_name)
+                    }
+                    let new_name = name_from_id(elem)
+                    if (new_name) {
+                        this.grouphandlers.enter(new_name)
+                    }
+                    this.last_elem = elem
+                }
+
+        }
+        
+        cancel(ev: Event) {
+            ev.preventDefault()
+        }
+
+
     }
 
-    function onsurfaceup(ev: MouseEvent) {
-        console.log('general up')
+    let handlers = new Map<string, PointerOverlay>()
+
+    let dpad_handlers = {
+
     }
 
-    function onover(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'over')
+    function call_the_handler(handler, buttonname, ev: Event) {
+        // ev.preventDefault()
+        handler(buttonname)
     }
 
-    function onenter(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'enter')
+    function negate_default(ev: Event) {
+        ev.preventDefault()
     }
 
-    function onleave(btnname: string, ev: MouseEvent) {
-        console.log(btnname, 'leave')
-    }
 
+    $: handlers.set('facebuttons', new PointerOverlay(new FaceButtonGroup(inputmap)))
+    $: handlers.set('dpad', new PointerOverlay(new DPadGroup(inputmap)))
+    $: handlers.set('optbuttons', new PointerOverlay(new ButtonGroup(inputmap)))
+
+    /*
+                        on:pointerdown={(ev) => call_the_handler(btn=>handlers.get(buttongroup[0]).down(btn, ev), button[1], ev)}
+                        on:pointerup={(ev) => call_the_handler(btn=>handlers.get(buttongroup[0]).up(btn,ev), button[1], ev)}
+                        on:pointerenter={(ev) => call_the_handler(btn=>handlers.get(buttongroup[0]).enter(btn,ev), button[1], ev)}
+                        on:pointerleave={(ev) => call_the_handler(btn=>handlers.get(buttongroup[0]).leave(btn,ev), button[1], ev)}
+
+                    on:pointerdown={ev=>console.log('pointerdown on', button[1])}
+                    on:pointerup={ev=>console.log('pointerup on', button[1])}
+                    on:pointerenter={ev=>console.log('pointerenter on', button[1])}
+                    on:pointerleave={ev=>console.log('pointerleave on', button[1])}
+    **/
 
 </script>
 
-<div id="inputsurface"
-    on:mouseup={onsurfaceup}
+<div id="inputsurface">
 
->
     {#each Object.entries(buttons) as buttongroup}
-        <div id={buttongroup[0]} class="buttongroup">
+        <div id={buttongroup[0]} class="buttongroup"
+        on:pointerdown={ev=>handlers.get(buttongroup[0]).down(ev)}
+        on:pointerup={ev=>handlers.get(buttongroup[0]).up(ev)}
+        on:pointermove={ev=>handlers.get(buttongroup[0]).move(ev)}
+        on:pointerleave={ev=>handlers.get(buttongroup[0]).leave(ev)}
+        on:pointercancel={ev=>handlers.get(buttongroup[0]).cancel(ev)}
+        >
             {#each buttongroup[1] as button}
                 <div class="buttoncontainer {button[1]}">
-                    <button
-                        on:mousedown={(ev) => ondown(button[1], ev)}
-                        on:mouseup={(ev) => onup(button[1], ev)}
-                        on:mouseenter={(ev) => onenter(button[1], ev)}
-                        on:mouseleave={(ev) => onleave(button[1], ev)}
+                    <button id="button-{button[1]}"
                     >{button[0]}</button>
                 </div>
             {/each}
@@ -94,7 +169,9 @@
 
     .buttongroup {
         position: absolute;
-        border: blue 1px solid;
+        /* border: blue 1px solid; */
+        border: none;
+        touch-action: none;
     }
 
     .buttongroup .buttoncontainer {
@@ -104,13 +181,14 @@
     .buttongroup .buttoncontainer button {
         position: relative;
         z-index: 700;
+        touch-action: none;
     }
 
     #dpad {
-        top: 115vmin;
-        left: 2vmin;
-        width: 45vmin;
-        height: 45vmin;
+        top: 99vw;
+        left: 8vmin;
+        width: 38vmin;
+        height: 38vmin;
         background-image: url('/img/atomic/dpad2.svg');
         background-position: center;
         background-repeat: no-repeat;
@@ -119,6 +197,13 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
+    }
+    @media (orientation: landscape) {
+        #dpad {
+            top: 10vh;
+            right: calc(50vh + 50vw);
+            left: unset;
+        }
     }
     #dpad .buttoncontainer {
         position: relative;
@@ -133,6 +218,9 @@
         left: 0;
         right: 0;
         bottom: 0;
+        background: transparent;
+        border: none;
+        color: transparent;
     }
     /* #dpad .up {
         top: 0;
@@ -166,12 +254,19 @@
 
     } */
     #facebuttons {
-        top: 120vmin;
-        right: 2vmin;
+        top: 103vw;
+        right: 8vmin;
         display: grid;
         transform: rotate(-25deg);
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr;
+    }
+    @media (orientation: landscape) {
+        #facebuttons {
+            top: 10vh;
+            left: calc(50vh + 52vw);
+            right: unset;
+        }
     }
     #facebuttons button {
         width: 12vmin;
@@ -195,6 +290,25 @@
     }
     #optbuttons {
         bottom: 10vw;
+    }
+    @media (orientation: landscape) and  (max-aspect-ratio: 639/361) {
+        #facebuttons button {
+            width: 5vmin;
+            height: 5vmin;
+        }
+        #facebuttons {
+            top: 10vh;
+            left: calc(50vh + 50vw);
+            right: unset;
+        }
+        #dpad {
+            top: 10vh;
+            right: calc(50vh + 48vw);
+            left: unset;
+            width: 18vmin;
+            height: 18vmin;
+        }
+
     }
 
 

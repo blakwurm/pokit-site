@@ -5,6 +5,7 @@
 	import Clasp from './Clasp.svelte'
 	import Screen from './Screen.svelte'
 	import Input from './Input.svelte'
+	import Drawer from './Drawer.svelte'
 
 	// If we have this, then we have the world
 	let pokit: PokitOS
@@ -75,6 +76,7 @@
 	<Clasp kickoff={clasp_button_press} bind:activated></Clasp>
 	<Screen bind:activated bind:canvas bind:is_error></Screen>
 	<Input bind:pokit={pokit}></Input>
+	<Drawer></Drawer>
 	<div id="backmask"></div>
 
 

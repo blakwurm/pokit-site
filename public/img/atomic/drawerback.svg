@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100px"
+   height="100px"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="drawerback.ink.svg"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview14"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="true"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="11.076695"
+     inkscape:cx="41.302935"
+     inkscape:cy="78.317586"
+     inkscape:window-width="1680"
+     inkscape:window-height="931"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer4"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="5,5"
+       orientation="0,-1"
+       id="guide1085" />
+    <sodipodi:guide
+       position="5,95"
+       orientation="0,1"
+       id="guide1087"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="95,5"
+       orientation="-1,0"
+       id="guide1089"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="5,5"
+       orientation="0,1"
+       id="guide1214"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="5,88"
+       orientation="0,1"
+       id="guide1950"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="5,12"
+       orientation="0,1"
+       id="guide1952"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="88,95"
+       orientation="-1,0"
+       id="guide1956"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="15,90"
+       orientation="0,1"
+       id="guide1589"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="90,15"
+       orientation="-1,0"
+       id="guide1591"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="85,10"
+       orientation="0,1"
+       id="guide1593"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="10,95"
+       orientation="-1,0"
+       id="guide1814"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="5,90"
+       orientation="-1,0"
+       id="guide1816"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+    <sodipodi:guide
+       position="12,95"
+       orientation="-1,0"
+       id="guide1818"
+       inkscape:label=""
+       inkscape:locked="false"
+       inkscape:color="rgb(0,0,255)" />
+  </sodipodi:namedview>
+  <defs
+     id="defs9">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1722">
+      <stop
+         style="stop-color:#756969;stop-opacity:1"
+         offset="0"
+         id="stop1718" />
+      <stop
+         style="stop-color:#d5cfcf;stop-opacity:1"
+         offset="1"
+         id="stop1720" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient1483">
+      <stop
+         style="stop-color:#9b8d8d;stop-opacity:1;"
+         offset="0"
+         id="stop1479" />
+      <stop
+         style="stop-color:#b9afaf;stop-opacity:0.66532254"
+         offset="1"
+         id="stop1481" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1483"
+       id="linearGradient1485"
+       x1="30.514025"
+       y1="18.590458"
+       x2="78.387466"
+       y2="89.802376"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1722"
+       id="linearGradient1724"
+       x1="20.681787"
+       y1="20.370754"
+       x2="90"
+       y2="85"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Subbase">
+    <rect
+       style="fill:#aba2a2;fill-opacity:1"
+       id="rect1980"
+       width="14.095505"
+       height="14.487962"
+       x="5"
+       y="80.512039"
+       rx="0"
+       ry="0" />
+  </g>
+  <g
+     inkscape:label="Base"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <rect
+       style="fill:#aba2a2;fill-opacity:1;fill-rule:evenodd"
+       id="rect1113"
+       width="90"
+       height="90"
+       x="5"
+       y="5"
+       ry="9.6824265" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 3"
+     style="display:inline">
+    <rect
+       style="fill:url(#linearGradient1724);fill-opacity:1"
+       id="rect1617"
+       width="80"
+       height="80"
+       x="10"
+       y="10"
+       ry="5" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="DrawerInner"
+     style="display:inline">
+    <rect
+       style="fill:url(#linearGradient1485);fill-opacity:1;fill-rule:evenodd"
+       id="rect1257"
+       width="76"
+       height="76"
+       x="12"
+       y="12"
+       ry="4.5779085"
+       rx="3.9952037" />
+  </g>
+</svg>
