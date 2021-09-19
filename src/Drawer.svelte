@@ -3,7 +3,7 @@
     import Joypad from './drawertabs/Joypad.svelte'
     import Chat from './drawertabs/Chat.svelte'
     import Gameinfo from './drawertabs/Gameinfo.svelte'
-    export let hidden = false
+    export let hidden = true
 
     let tabs = {
         'gameinfo':  {name: "Gameinfo", display: "ℹ️", component: Gameinfo},
