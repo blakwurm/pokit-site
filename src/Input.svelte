@@ -289,7 +289,52 @@
         position: relative;
     }
     #optbuttons {
-        bottom: 10vw;
+        position: absolute;
+        bottom: 5vw;
+        left: calc(100vw - 26ch);
+    }
+    @media (orientation: landscape) {
+        div#optbuttons.buttongroup {
+            left: 5vmin;
+            bottom: 1vmin;
+        }
+    }
+    #optbuttons .buttoncontainer {
+        display: absolute;
+    }
+    #optbuttons button {
+        position: absolute;
+        border-image: url("/img/atomic/roundbutton2.svg");
+        border-image-slice: 14 fill;
+        border-image-width: 5vmin 5vmin 5vmin 5vmin;
+        background: none;
+        text-shadow:0px 1px 0px hsla(0, 20%, 80%, 0.5);
+        width: 6ch;
+
+    }
+    #button-Start {
+        bottom: 0;
+    }
+    #button-Select {
+        bottom: 0vmin;
+        left: 7ch;
+    }
+    #button-Opt {
+        bottom: 0vmin;
+        left: 14ch;
+    }
+    @media (orientation: landscape) {
+        #button-Start {
+            bottom: 0;
+        }
+        #button-Select {
+            bottom: 11vmin;
+            left: 0;
+        }
+        #button-Opt {
+            bottom: 22vmin;
+            left: 0;
+        }
     }
     @media (orientation: landscape) and  (max-aspect-ratio: 639/361) {
         #facebuttons button {
