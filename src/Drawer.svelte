@@ -3,7 +3,7 @@
     import Joypad from './drawertabs/Joypad.svelte'
     import Chat from './drawertabs/Chat.svelte'
     import Gameinfo from './drawertabs/Gameinfo.svelte'
-    export let hidden = true
+    export let hidden = false
 
     let tabs = {
         'gameinfo':  {name: "Gameinfo", display: "ℹ️", component: Gameinfo},
@@ -16,7 +16,11 @@
 </script>
 
 <div id="drawer" class:hidden>
+    <button id="drawertoggle" on:click="{(ev)=>hidden = !hidden}"> <span> ⚙ </span></button>
     <div id="drawerinner">
+        <div class="comp-container">
+            <svelte:component this={tabs[selected_tab].component} />
+        </div>
         <ul>
             {#each Object.entries(tabs) as tab}
                 <li>
@@ -29,11 +33,7 @@
                 </li>
             {/each}
         </ul>
-        <div class="comp-container">
-            <svelte:component this={tabs[selected_tab].component} />
-        </div>
     </div>
-    <button id="drawertoggle" on:click="{(ev)=>hidden = !hidden}"> <span> ⚙ </span></button>
 </div>
 
 <div id="drawer-backmask" class:hidden>
@@ -44,19 +44,19 @@
      #drawer {
          position: absolute;
          left: 2vw;
-         top: 0vh;
-         bottom: 0vh;
-         width: 98vw;
+         top: 1vh;
+         bottom: 1vh;
+         width: 96vw;
          z-index: 1000;
-         border-image: url("/img//atomic/drawerback.svg");
-         border-image-slice: 20 fill;
-         border-image-width: 20vmin;
+         border-image: url("/img//atomic/drawerscreen.svg");
+         border-image-slice: 50 fill;
+         border-image-width: 15vmin;
          transition: left 1s;
-         filter: hue-rotate(var(--theme-hue)) drop-shadow(0 0 0.75rem rgb(44, 44, 44));
+         filter: hue-rotate(var(--theme-hue)); /* drop-shadow(0 0 0.15rem hsla(var(--theme-hue), 50%, 50%, 0.2));*/
          pointer-events: auto;
      }
      #drawer.hidden {
-        left: calc(100vw - 5vmin);
+        left: calc(100vw + 0vmin);
      }
      #drawer-backmask {
          position: absolute;
@@ -64,9 +64,9 @@
          bottom: 0;
          right: 0;
          left: 0;
-         z-index: 999;
+         z-index: 990;
          opacity: 50%;
-         background: hsla(var(--theme-hue), 50%, 50%, 0.5);
+         background: hsla(var(--theme-hue), 50%, 50%, 0.2);
          transition: opacity 1s;
      }
      #drawer-backmask.hidden {
@@ -86,28 +86,39 @@
      }
      #drawertoggle {
          position: absolute;
-         left: -3.9vmin;
-         bottom: 5vmin;
+         left: calc(100vw - 15vmin);
+         bottom: calc(100vh - 20vmin);
          margin: 0;
-         width: 10vmin;
-         height: 25vmin;
+         width: 25vmin;
+         height: 10vmin;
          background: none;
-         border-image: url("/img//atomic/drawertab.svg");
-         border-image-slice: 16 11 6 6 fill;
-         border-image-width: 16vmin 11vmin 6vmin 6vmin;
+         border-image: url("/img/atomic/roundbutton2.svg");
+         border-image-slice: 14 fill;
+         border-image-width: 5vmin 5vmin 5vmin 5vmin;
+         display: flex;
+         align-items: left;
+         z-index: 995;
+         transition: left 1s, bottom 1s;
+     }
+     .hidden #drawertoggle {
+         left: -10vmin;
+         bottom: 10vmin;
      }
      #drawertoggle span {
-         position: absolute;
-         left: 1vmin;
+         /* position: absolute;
+         left: 1vmin; */
          font-size: 10vmin;
+         margin-top: -4vmin;
 
      }
 
      #drawerinner ul {
+         position: absolute;
          display: flex;
          justify-content: center;
          padding: 0;
          margin: 1vmin 0;
+         bottom: 0;
      }
 
      #drawerinner ul li {
