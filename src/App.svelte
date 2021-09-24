@@ -93,7 +93,7 @@
 		bottom: 0;
 		left: 0;
 		right: 0;
-		text-align: center;
+		text-align: left;
 		padding: 0;
 		margin: 0;
 	}

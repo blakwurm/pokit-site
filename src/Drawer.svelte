@@ -42,7 +42,7 @@
 
 <style>
      #drawer {
-         font-family: monospace;
+         font-family: 'VGA', monospace;
          color: white;
          position: absolute;
          left: 2vw;
@@ -54,12 +54,13 @@
          border-image-slice: 50 fill;
          border-image-width: 15vmin;
          transition: left 1s;
-         filter: hue-rotate(var(--theme-hue)); /* drop-shadow(0 0 0.15rem hsla(var(--theme-hue), 50%, 50%, 0.2));*/
+         filter: hue-rotate(var(--theme-hue)) drop-shadow(0.4vmin 1vmin 0.5vmin rgba(0,0,0,0.3));
          pointer-events: auto;
      }
      #drawer * {
-         font-family: monospace;
+         font-family: 'VGA', monospace;
          border-radius: 0;
+         filter: unset;
      }
      #drawer.hidden {
         left: calc(100vw + 0vmin);
@@ -85,9 +86,15 @@
          right: 5vmin;
          bottom: 5vmin;
          top: 5vmin;
-         overflow-x: scroll;
          /* box-shadow: inset 0 0 10px #000000; */
          z-index: 10000;
+         border: double 6px grey;
+         border-bottom: solid 2px grey;
+     }
+     .comp-container {
+         height: calc(100% - 8vmin + 1px);
+         overflow-x: scroll;
+
      }
      #drawertoggle {
          position: absolute;
@@ -102,8 +109,9 @@
          border-image-width: 5vmin 5vmin 5vmin 5vmin;
          display: flex;
          align-items: left;
-         z-index: 995;
+         z-index: 11000;
          transition: left 1s, bottom 1s;
+         filter: drop-shadow(1vmin 1vmin 0.5vmin black);
      }
      .hidden #drawertoggle {
          left: -10vmin;
@@ -123,11 +131,10 @@
          display: flex;
          justify-content: left;
          padding: 0;
-         padding-top: 1px;
-         margin: 1vmin 0;
+         margin: 0;
          bottom: 0;
-         border-top: 3px solid grey;
          width: 100%;
+         background: grey;
      }
 
      #drawerinner ul li {
@@ -137,7 +144,6 @@
      }
 
      #drawerinner ul li button{
-         height: 12vmin;        
          min-width: 15vmin;
          font-size: 4vmin;
          padding: 0;
@@ -145,9 +151,7 @@
          background: none;
          border: none;
          /* border-bottom: 1px solid black; */
-         color: black;
-         background: grey;
-         height: 10vmin;
+         height: 7vmin;
          border-radius: 0;
      }
      #drawerinner ul li button::first-letter {
@@ -156,6 +160,7 @@
      }
      #drawerinner ul li button.selected{
         /* border-bottom: 3px solid black; */
-        background: blue;
+        background: red;
+        /* border-bottom: solid 0.5vmin grey; */
      }
 </style>
