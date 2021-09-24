@@ -6,10 +6,10 @@
     export let hidden = false
 
     let tabs = {
-        'gameinfo':  {name: "Gameinfo", display: "ℹ️", component: Gameinfo},
-        'chat':  {name: "Chat", display: "💬", component: Chat},
-        'settings':  {name: "Settings", display: "⚙️", component: Settings},
-        'joypad':  {name: "Joypad", display: "🎮", component: Joypad},
+        'gameinfo':  {name: "Gameinfo", display: "Info", component: Gameinfo},
+        'chat':  {name: "Chat", display: "Chat", component: Chat},
+        'settings':  {name: "Settings", display: "Sett", component: Settings},
+        'joypad':  {name: "Joypad", display: "Gpad", component: Joypad},
     }
 
     let selected_tab = 'settings' 
@@ -42,6 +42,8 @@
 
 <style>
      #drawer {
+         font-family: monospace;
+         color: white;
          position: absolute;
          left: 2vw;
          top: 1vh;
@@ -54,6 +56,10 @@
          transition: left 1s;
          filter: hue-rotate(var(--theme-hue)); /* drop-shadow(0 0 0.15rem hsla(var(--theme-hue), 50%, 50%, 0.2));*/
          pointer-events: auto;
+     }
+     #drawer * {
+         font-family: monospace;
+         border-radius: 0;
      }
      #drawer.hidden {
         left: calc(100vw + 0vmin);
@@ -75,11 +81,10 @@
      }
      #drawerinner {
          position: absolute;
-         left: 12vmin;
-         right: 12vmin;
-         bottom: 12vmin;
-         top: 12vmin;
-         border-radius: 4vmin;
+         left: 5vmin;
+         right: 5vmin;
+         bottom: 5vmin;
+         top: 5vmin;
          overflow-x: scroll;
          /* box-shadow: inset 0 0 10px #000000; */
          z-index: 10000;
@@ -113,12 +118,16 @@
      }
 
      #drawerinner ul {
+         color: white;
          position: absolute;
          display: flex;
-         justify-content: center;
+         justify-content: left;
          padding: 0;
+         padding-top: 1px;
          margin: 1vmin 0;
          bottom: 0;
+         border-top: 3px solid grey;
+         width: 100%;
      }
 
      #drawerinner ul li {
@@ -130,14 +139,23 @@
      #drawerinner ul li button{
          height: 12vmin;        
          min-width: 15vmin;
-         font-size: 8vmin;
+         font-size: 4vmin;
          padding: 0;
          margin: 0;
          background: none;
          border: none;
-         border-bottom: 1px solid black;
+         /* border-bottom: 1px solid black; */
+         color: black;
+         background: grey;
+         height: 10vmin;
+         border-radius: 0;
+     }
+     #drawerinner ul li button::first-letter {
+         font-size: 150%;
+         text-decoration: underline;
      }
      #drawerinner ul li button.selected{
-        border-bottom: 3px solid black;
+        /* border-bottom: 3px solid black; */
+        background: blue;
      }
 </style>
