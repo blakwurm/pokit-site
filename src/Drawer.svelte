@@ -3,7 +3,7 @@
     import Joypad from './drawertabs/Joypad.svelte'
     import Chat from './drawertabs/Chat.svelte'
     import Gameinfo from './drawertabs/Gameinfo.svelte'
-    export let hidden = false
+    export let hidden = true
 
     let tabs = {
         'gameinfo':  {name: "Gameinfo", display: "Info", component: Gameinfo},
@@ -99,7 +99,7 @@
      #drawertoggle {
          position: absolute;
          left: calc(100vw - 15vmin);
-         bottom: calc(100vh - 20vmin);
+         bottom: calc(100vh - 50vmin);
          margin: 0;
          width: 25vmin;
          height: 10vmin;

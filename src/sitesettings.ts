@@ -54,4 +54,4 @@ class SettingStore<N> {
 
 }
 
-export const atomic_hue = new SettingStore('atomic-hue', 200)
+export const atomic_hue = new SettingStore('atomic-hue', 263)

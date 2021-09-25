@@ -13,11 +13,11 @@
 <div id="setters">
     <div class="setting-setter">
         <label for="atomic-hue-modifier">Atomic Hue</label>
-        <ul class="buttonset">
+        <select bind:value={$atomic_hue} class="buttonset">
             {#each hue_choices as {name, hue}}
-                <button class:selected={$atomic_hue === hue} on:click="{e=>$atomic_hue=hue}">{name}</button>
+                <option value="{hue}" class:selected={$atomic_hue === hue} on:click="{e=>$atomic_hue=hue}">{name}</option>
             {/each}
-        </ul>
+        </select>
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 @font-face {
 	font-family: VGA;
-	src: url('/Perfect DOS VGA 437.ttf');
+	src: url('/font/Perfect DOS VGA 437.ttf');
 }
 
 html, body {
@@ -86,4 +86,22 @@ button:focus {
 #drawerinner button.selected {
 	background: red;
 	color: yellow;
+}
+
+#drawerinner ul {
+	margin: 0;
+	padding: 0;
+
+}
+
+#drawerinner select {
+	display: block;
+	background: none;
+	border: 3px solid white;
+	color: white;
+	border-radius: 0;
+}
+
+#drawerinner select option {
+	display: inline-block;
 }
