@@ -3,7 +3,7 @@
     import Joypad from './drawertabs/Joypad.svelte'
     import Chat from './drawertabs/Chat.svelte'
     import Gameinfo from './drawertabs/Gameinfo.svelte'
-    export let hidden = true
+    export let hidden = false
 
     let tabs = {
         'gameinfo':  {name: "Gameinfo", display: "Info", component: Gameinfo},
@@ -12,7 +12,7 @@
         'joypad':  {name: "Joypad", display: "Gpad", component: Joypad},
     }
 
-    let selected_tab = 'settings' 
+    let selected_tab = 'joypad' 
 </script>
 
 <div id="drawer" class:hidden>

@@ -9,6 +9,7 @@ window.oncontextmenu = function(event) {
 	return false;
 };
 
+
 const app = new App({
 	target: document.body,
 	props: {
