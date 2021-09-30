@@ -80,7 +80,7 @@
 	<Clasp kickoff={clasp_button_press} bind:activated></Clasp>
 	<Screen bind:activated bind:canvas bind:is_error></Screen>
 	<Input bind:pokit={pokit}></Input>
-	<Drawer></Drawer>
+	<Drawer bind:pokit></Drawer>
 	<div id="backmask"></div>
 
 

@@ -1,11 +1,21 @@
 <script lang="ts">
     export let activated = false
+    let pressed = false
     export let kickoff: () => Promise<void>
-        function foo() {
+        $: console.log(kickoff)
+        async function wait() {
+            return new Promise((resolve, reject) => setTimeout(resolve, 16)) 
+        }
+        async function foo() {
             console.log('kickoff now')
-            kickoff()
+            pressed = true
+            while (!activated) {
+                await wait()
+                kickoff()
+            }
             console.log('kickoff then')
         }
+    window.addEventListener('gamepadconnected', foo)
 
 </script>
 
@@ -38,6 +48,7 @@
         --one-width: 33.333vw;
         --two-width: 66.666vw;
         pointer-events: none;
+        filter: hue-rotate(var(--theme-hue)), url('/img/atomic/turbulence.svg#turbulence');
     }
     #panels.active {
         /* top: -50vh;
@@ -50,10 +61,8 @@
     #panels div, #panels button{
         position: absolute;
         display: inline-block;
-        width: calc(var(--one-width) - 6px);
-        height: calc(var(--one-height) - 6px);
-        background-color: rgba(102, 51, 153, 0.6);
-        border: 3px inset grey;
+        width: calc(var(--one-width));
+        height: calc(var(--one-height));
   		transition: top 1s, bottom 1s, left 1s, right 1s, border-radius 1s;
         transition-timing-function: ease-in;
         padding: 0;
@@ -61,8 +70,14 @@
         backdrop-filter: blur(2px);
         pointer-events: all;
     }
+    #panels div {
+        background-color: rgba(255, 0, 0, 0.5);
+        /* border-image: url("/img/atomic/clasppanel.svg");
+        border-image-slice: 10 fill;
+        border-image-width: 10vmin; */
+    }
     #panels.active div {
-        border-radius: 30vmin;
+        /* border-radius: 30vmin; */
     }
     #panel-0 {
         top: 0;

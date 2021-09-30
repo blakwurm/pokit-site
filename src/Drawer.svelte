@@ -3,7 +3,9 @@
     import Joypad from './drawertabs/Joypad.svelte'
     import Chat from './drawertabs/Chat.svelte'
     import Gameinfo from './drawertabs/Gameinfo.svelte'
+    import type { PokitOS } from './pokittypes/pokit';
     export let hidden = false
+    export let pokit: PokitOS
 
     let tabs = {
         'gameinfo':  {name: "Gameinfo", display: "Info", component: Gameinfo},
@@ -19,7 +21,7 @@
     <button id="drawertoggle" on:click="{(ev)=>hidden = !hidden}"> <span> ⚙ </span></button>
     <div id="drawerinner">
         <div class="comp-container">
-            <svelte:component this={tabs[selected_tab].component} />
+            <svelte:component this={tabs[selected_tab].component} bind:pokit/>
         </div>
         <ul>
             {#each Object.entries(tabs) as tab}
