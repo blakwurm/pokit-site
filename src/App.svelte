@@ -24,6 +24,8 @@
 	// is able
 	export let activated = false
 
+	export let drawer_open = false
+
 	// Flag to let us know if the system is in error, which will
 	// display the appropriate error lights etc
 	export let is_error = false
@@ -80,7 +82,7 @@
 	<Clasp kickoff={clasp_button_press} bind:activated></Clasp>
 	<Screen bind:activated bind:canvas bind:is_error></Screen>
 	<Input bind:pokit={pokit}></Input>
-	<Drawer bind:pokit></Drawer>
+	<Drawer bind:pokit bind:drawer_open></Drawer>
 	<div id="backmask"></div>
 
 

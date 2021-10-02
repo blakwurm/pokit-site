@@ -4,7 +4,10 @@
     import Chat from './drawertabs/Chat.svelte'
     import Gameinfo from './drawertabs/Gameinfo.svelte'
     import type { PokitOS } from './pokittypes/pokit';
-    export let hidden = false
+    export let drawer_open = true
+    let hidden: boolean
+    $: hidden = !drawer_open
+
     export let pokit: PokitOS
 
     let tabs = {
