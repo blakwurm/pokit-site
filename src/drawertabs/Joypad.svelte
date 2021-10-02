@@ -2,8 +2,11 @@
     import { each } from "svelte/internal";
     import type { GamepadMappings, GamepadMapping, GpInfo } from "../pokittypes/modules/Engine/input/gamepad";
     import type { PokitOS } from "../pokittypes/pokit";
+    import MapperUI from './gamepad/MapperUI.svelte'
 
     console.log('gamepads', navigator.getGamepads())
+
+    let REMAPMODE = true
 
     export let pokit: PokitOS
     $: console.log('pokit is', pokit)
@@ -23,6 +26,8 @@
     $: sanitizedTitles = connectedGamepads.map(id=>gamepadmappings?.getGpInfo(id))
 
     let latestGpInput = ''
+
+    let currentInputs: Record<string, number> = {}
 
     function getDisplayLabels(mapping: GamepadMapping) {
         mapping.gamepads = mapping.gamepads || []
@@ -59,6 +64,7 @@
      onActiveGpChanged(activeGps: string[])
      onGpConnected(id: string)
      onGpDisconnected(id: string)
+     onInputMapUpdated(map: Map<string, number>)
     */
     $: if (pokit) {
         let reg = Pokit.modules.registerEvent.bind(Pokit.modules)
@@ -67,6 +73,7 @@
         let refreshActiveGamepad = () => activeGamepads = gamepadmappings?.gamepads
         let refreshActiveMapping = () => {
             activeMappingName = gamepadmappings?.mappingName
+            activeMapping = gamepadmappings?.mapping
         }
         refreshGamepads()
         refreshMapings()
@@ -85,14 +92,55 @@
         })
         reg('onGpMapUpdated', (name: string, map: GamepadMapping) => {
             refreshMapings()
+            refreshActiveMapping()
         })
         reg('onActiveGpMapChanged', (name: string)=>{
             refreshMapings()
             refreshActiveMapping()
         })
+        reg('onInputMapUpdated', (map:Map<String, number>)=>{
+            console.log('updated n shit')
+            currentInputs = Object.fromEntries(map)
+        })
+        let inputMod = Pokit.modules.get('input') as Map<string, number>
+        if (inputMod.size > 0) {
+            currentInputs = Object.fromEntries(inputMod)
+        }
+        // debug
+        newmappingname = 'testificate'
+        makeNewMapping()
+        // yeah
     }
+var getStackTrace = function() {
+  var obj:any = {};
+  Error.captureStackTrace(obj, getStackTrace);
+  return obj.stack;
+};
 
 
+
+console.log(getStackTrace());
+
+
+function remapButtonPress(inputkey) {
+    return function (ev) {
+        console.log(inputkey)
+    }
+}
+
+let newmappingname = ''
+$: console.log(newmappingname)
+function modMappingName() {
+    return `User: ${newmappingname}`
+}
+function makeNewMapping() {
+    console.log('making new called', modMappingName())
+    gamepadmappings.makeEmptyMapping(modMappingName())
+}
+function cloneCurrentMapping() {
+    console.log('cloning, calling it', modMappingName())
+    gamepadmappings.clone(activeMappingName, modMappingName())
+}
 
 </script>
 
@@ -113,8 +161,101 @@
         {/each}
     </select>
 </div>
-<div>
-
-
+<div id="buttonreppers">
+    <div>Button Input Mapper</div>
+    {#each Object.entries(currentInputs) as [a,b]}
+        <button on:click={remapButtonPress(a)} class="buttonrep {a}" style="--pressed-amt:{b}">{a}</button>   
+    {/each}
 </div>
-<div>{latestGpInput}</div>
+<button on:click="{()=>REMAPMODE = !REMAPMODE}">Toggle Remap Mode</button>
+<div>Remap Mode is: {REMAPMODE ? 'on' : 'off'}</div>
+
+{#if REMAPMODE}
+<p>First, make a new mapping</p>
+    <button on:click={makeNewMapping}>New Mapping</button>
+    <button on:click={cloneCurrentMapping}>Clone Current</button>
+    <input type="text" placeholder="New Mapping Name" bind:value={newmappingname}>
+<p>Then, press one of the buttons under "Button Input Mapper", then press a button on the active gamepad.</p>
+<MapperUI bind:activeMapping bind:activeMappingName></MapperUI>
+{/if}
+
+<style>
+    #buttonreppers {
+        position: relative;
+        height: 7em;
+    }
+    #buttonreppers button.buttonrep {
+        display: inline-block;
+        position: absolute;
+        background: none;
+        color: hsla(40, 100%, calc(50% * var(--pressed-amt)), 1);
+        background-color: hsla(0, calc(100% * var(--pressed-amt)), 50%, 1);
+        padding: unset;
+        margin: unset;
+    }
+    button.buttonrep.up {
+        padding-left: 5ch;
+    }
+    .up {
+        left: 5ch;
+        width: 5ch;
+    }
+    .down {
+        left: 5ch;
+        top: 3em;
+        width: 5ch;
+    }
+    .left {
+        top: 2em;
+        width: 5ch
+    }
+    .right {
+        top: 2em;
+        left: 10ch;
+    }
+
+    .a {
+        top: 4em;
+        left: 18ch;
+        width: 1ch;
+    }
+    .b {
+        top: 3em;
+        left: 19ch;
+        width: 1ch;
+    }
+    .x {
+        top: 3em;
+        left: 17ch;
+        width: 1ch;
+    }
+    .y {
+        top: 2em;
+        left: 18ch;
+        width: 1ch;
+    }
+    .l {
+        left: 19ch;
+        width: 1ch;
+    }
+    .r {
+        top: 2em;
+        left: 20ch;
+        width: 1ch;
+    }
+    
+    .start {
+        top: 5em;
+        width: 5ch;
+    }
+    .select {
+        top: 5em;
+        left: 6ch;
+        width: 6ch;
+    }
+    .opt {
+        top: 5em;
+        left: 13ch;
+        width: 3ch;
+    }
+</style>

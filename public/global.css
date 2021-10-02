@@ -102,6 +102,15 @@ button:focus {
 	border-radius: 0;
 }
 
+#drawerinner input {
+	background: none;
+	color: white;
+	border: dotted 2px white;
+	border-radius: 0;
+}
+
 #drawerinner select option {
 	display: inline-block;
+	color: black;
+	background-color: white;
 }
