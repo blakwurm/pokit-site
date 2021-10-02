@@ -13,7 +13,8 @@ window.oncontextmenu = function(event) {
 const app = new App({
 	target: document.body,
 	props: {
-		activated: params.has('noclasp')
+		activated: params.has('noclasp'),
+		drawer_open: params.has('draweropen')
 	}
 });
 
