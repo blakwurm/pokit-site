@@ -1,14 +1,16 @@
+import type {InputMod} from './pokittypes/modules/Engine/input/input'
+
 
     export class ButtonGroup {
-        constructor(inputmap: Map<string, number>) {
+        constructor(inputmap: InputMod) {
             this.inputmap = inputmap
         }
-        inputmap: Map<string, number>
+        inputmap: InputMod
         up (btnname: string) {
-            this.inputmap.set(btnname, 0)
+            this.inputmap.pushAction(btnname, 0)
         }
         down (btnname: string) {
-            this.inputmap.set(btnname, 1)
+            this.inputmap.pushAction(btnname, 1)
         }
         enter (btnname: string) {
         }
@@ -39,7 +41,7 @@
             console.log(this.inputmap)
             console.log(btnname)
             for (let trigger of triggers) {
-                this.inputmap.set(trigger, val)
+                this.inputmap.pushAction(trigger, val)
                 console.log(trigger, 'is now', val)
                 console.log(this.inputmap.get(trigger))
             }
@@ -83,10 +85,10 @@
         _primary?: string = null
         set primary(x: string) {
             if (x) {
-                this.inputmap.set(x, 1)
+                this.inputmap.pushAction(x, 1)
                 console.log(x, 'pressed')
             } else {
-                this.inputmap.set(this._primary, 0)
+                this.inputmap.pushAction(this._primary, 0)
                 console.log(this.primary, 'depressed')
             }
             this._primary = x
@@ -99,10 +101,10 @@
                 if (this._secondary) {
                     this.secondary = null
                 }
-                this.inputmap.set(x, 1)
+                this.inputmap.pushAction(x, 1)
                 console.log(x, 'pressed')
             } else {
-                this.inputmap.set(this._secondary, 0)
+                this.inputmap.pushAction(this._secondary, 0)
                 console.log(this._secondary, 'depressed')
             }
             this._secondary = x

@@ -66,6 +66,7 @@
      onGpDisconnected(id: string)
      onInputMapUpdated(map: Map<string, number>)
     */
+    let once = true;
     $: if (pokit) {
         let reg = Pokit.modules.registerEvent.bind(Pokit.modules)
         let refreshGamepads = () => connectedGamepads = gamepadmappings?.connectedGamepads
@@ -106,11 +107,18 @@
         if (inputMod.size > 0) {
             currentInputs = Object.fromEntries(inputMod)
         }
-        // debug
-        newmappingname = 'testificate'
-        makeNewMapping()
-        // yeah
+
+        if(once) {
+            newmappingname = 'testificate'
+            makeNewMapping()
+            once = false
+        }
     }
+
+setTimeout(() => {
+        // debug
+        // yeah
+},1);
 var getStackTrace = function() {
   var obj:any = {};
   Error.captureStackTrace(obj, getStackTrace);
@@ -176,7 +184,9 @@ function cloneCurrentMapping() {
     <button on:click={cloneCurrentMapping}>Clone Current</button>
     <input type="text" placeholder="New Mapping Name" bind:value={newmappingname}>
 <p>Then, press one of the buttons under "Button Input Mapper", then press a button on the active gamepad.</p>
-<MapperUI bind:activeMapping bind:activeMappingName></MapperUI>
+    {#if pokit}
+        <MapperUI gpMapper={gamepadmappings}></MapperUI>
+    {/if}
 {/if}
 
 <style>
