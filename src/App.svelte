@@ -73,7 +73,6 @@
 		}
 	}
 
-
 	async function clasp_button_press() {
 		// We only want to do this if the kickoff
 		// variable is set, otherwise this is a no-op

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { debug, each } from "svelte/internal";
     import type { GamepadMappings, GamepadMapping, GpInfo } from "../pokittypes/modules/Engine/input/gamepad";
+    import type { Settings } from "../pokittypes/modules/Engine/storage/storage";
     import type { PokitOS } from "../pokittypes/pokit";
     import MapperUI from './gamepad/MapperUI.svelte'
 
@@ -77,10 +78,22 @@
             activeMappingName = gamepadmappings?.mappingName
             activeMapping = gamepadmappings?.mapping
         }
+        let storeMapPreference = () => {
+            console.log('set')
+            let path = pokit.modules.get<Settings>('Settings').path('@pokit/site/gpprefs')
+            let sanititle = gamepadmappings.getGpInfo(gamepadmappings.gamepads[0]);
+            path.set(sanititle.title, activeMappingName);
+        }
+        let getMapPreference = () => {
+            console.log('get')
+            let path = pokit.modules.get<Settings>('Settings').path('@pokit/site/gpprefs')
+            let sanititle = gamepadmappings.getGpInfo(gamepadmappings.gamepads[0]);
+            let map = path.get(sanititle.title);
+            return map;
+        }
         refreshGamepads()
         refreshMapings()
         refreshActiveGamepad()
-        refreshActiveMapping()
         reg('onGpConnected', id=>{
             refreshGamepads()
             refreshActiveGamepad()
@@ -96,9 +109,14 @@
         reg('onActiveGpMapChanged', (name: string)=>{
             refreshMapings()
             refreshActiveMapping()
+            storeMapPreference()
         })
         reg('onInputMapUpdated', (map:Map<String, number>)=>{
             currentInputs = Object.fromEntries(map)
+        })
+        reg('onActiveGpChanged', (activeGps: string[], e: {recommendedMapping: string, autoMap: boolean})=>{
+            let map = getMapPreference();
+            if(map) e.recommendedMapping = map;
         })
         let inputMod = Pokit.modules.get('input') as Map<string, number>
         if (inputMod.size > 0) {
