@@ -11,7 +11,7 @@
     $: activeMapping.deadzone = normalized_to_deadzone(deadzone)
 
     function normalized_to_deadzone(normalized: number) {
-        return Math.pow(normalized || 0.31622776601683794, deadzone_scale_strength)
+        return normalized ? Math.pow(normalized, deadzone_scale_strength) : 0.01;
     }
 
     function deadzone_to_normalized(deadzone: number) {
