@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { each } from "svelte/internal";
+    import { debug, each } from "svelte/internal";
     import type { GamepadMappings, GamepadMapping, GpInfo } from "../pokittypes/modules/Engine/input/gamepad";
     import type { PokitOS } from "../pokittypes/pokit";
     import MapperUI from './gamepad/MapperUI.svelte'
@@ -89,30 +89,31 @@
             refreshActiveGamepad()
         })
         reg('onGamepadInput', (pads: Gamepad[]) => {
-            console.log("hello");
-            let gp = pads[0];
-            if(REMAPMODE && currentButton !== '') {
-                for(let i in gp.buttons) {
-                    if(gp.buttons[i].value > 0.5) {
-                        activeMapping.buttons[i] = currentButton;
-                        currentButton = '';
-                        return;
-                    }
-                }
-                for(let i in gp.axes) {
-                    if(i === '9') continue;
-                    let value = gp.axes[i];
-                    if(Math.abs(value) > 0.5) {
-                        let s = Math.sign(value);
-                        let v = activeMapping.axes[i] || ['none','none'];
-                        s = 1-((s+1)/2);
-                        v[s] = currentButton;
-                        activeMapping.axes[i] = v;
-                        currentButton = '';
-                        return;
-                    }
-                }
-            }
+            // console.log(currentButton);
+            // if(REMAPMODE && currentButton !== '') {
+            //     debugger;
+            //     let gp = pads[0];
+            //     for(let i in gp.buttons) {
+            //         if(gp.buttons[i].value > 0.5) {
+            //             activeMapping.buttons[i] = currentButton;
+            //             currentButton = '';
+            //             return;
+            //         }
+            //     }
+            //     for(let i in gp.axes) {
+            //         if(i === '9') continue;
+            //         let value = gp.axes[i];
+            //         if(Math.abs(value) > 0.5) {
+            //             let s = Math.sign(value);
+            //             let v = activeMapping.axes[i] || ['none','none'];
+            //             s = 1-((s+1)/2);
+            //             v[s] = currentButton;
+            //             activeMapping.axes[i] = v;
+            //             currentButton = '';
+            //             return;
+            //         }
+            //     }
+            // }
         })
         reg('onGpMapUpdated', (name: string, map: GamepadMapping) => {
             refreshMapings()
