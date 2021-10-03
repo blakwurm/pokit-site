@@ -25,7 +25,7 @@
     let sanitizedTitles: GpInfo[] = []
     $: sanitizedTitles = connectedGamepads.map(id=>gamepadmappings?.getGpInfo(id))
 
-    let latestGpInput = ''
+    let currentButton = '';
 
     let currentInputs: Record<string, number> = {}
 
@@ -89,7 +89,30 @@
             refreshActiveGamepad()
         })
         reg('onGamepadInput', (pads: Gamepad[]) => {
-            // TODO
+            console.log("hello");
+            let gp = pads[0];
+            if(REMAPMODE && currentButton !== '') {
+                for(let i in gp.buttons) {
+                    if(gp.buttons[i].value > 0.5) {
+                        activeMapping.buttons[i] = currentButton;
+                        currentButton = '';
+                        return;
+                    }
+                }
+                for(let i in gp.axes) {
+                    if(i === '9') continue;
+                    let value = gp.axes[i];
+                    if(Math.abs(value) > 0.5) {
+                        let s = Math.sign(value);
+                        let v = activeMapping.axes[i] || ['none','none'];
+                        s = 1-((s+1)/2);
+                        v[s] = currentButton;
+                        activeMapping.axes[i] = v;
+                        currentButton = '';
+                        return;
+                    }
+                }
+            }
         })
         reg('onGpMapUpdated', (name: string, map: GamepadMapping) => {
             refreshMapings()
@@ -132,7 +155,7 @@ console.log(getStackTrace());
 
 function remapButtonPress(inputkey) {
     return function (ev) {
-        console.log(inputkey)
+        currentButton = inputkey;
     }
 }
 
@@ -172,7 +195,9 @@ function cloneCurrentMapping() {
 <div id="buttonreppers">
     <div>Button Input Mapper</div>
     {#each Object.entries(currentInputs) as [a,b]}
-        <button on:click={remapButtonPress(a)} class="buttonrep {a}" style="--pressed-amt:{b}">{a}</button>   
+        {#if a !== "none"}
+            <button on:click={remapButtonPress(a)} class="buttonrep {a}" style="--pressed-amt:{b}">{a}</button>   
+        {/if}
     {/each}
 </div>
 <button on:click="{()=>REMAPMODE = !REMAPMODE}">Toggle Remap Mode</button>
