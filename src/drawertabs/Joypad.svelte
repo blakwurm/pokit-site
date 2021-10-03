@@ -4,6 +4,7 @@
     import type { PokitOS } from "../pokittypes/pokit";
     import MapperUI from './gamepad/MapperUI.svelte'
 
+let newmappingname = ''
     console.log('gamepads', navigator.getGamepads())
 
     let REMAPMODE = true
@@ -66,8 +67,8 @@
      onGpDisconnected(id: string)
      onInputMapUpdated(map: Map<string, number>)
     */
-    let once = true;
-    $: if (pokit) {
+    let needsRunning = true;
+    $: if (pokit && needsRunning) {
         let reg = Pokit.modules.registerEvent.bind(Pokit.modules)
         let refreshGamepads = () => connectedGamepads = gamepadmappings?.connectedGamepads
         let refreshMapings = () => mappingOptions = [...gamepadmappings?.keys()]
@@ -89,31 +90,32 @@
             refreshActiveGamepad()
         })
         reg('onGamepadInput', (pads: Gamepad[]) => {
-            // console.log(currentButton);
-            // if(REMAPMODE && currentButton !== '') {
-            //     debugger;
-            //     let gp = pads[0];
-            //     for(let i in gp.buttons) {
-            //         if(gp.buttons[i].value > 0.5) {
-            //             activeMapping.buttons[i] = currentButton;
-            //             currentButton = '';
-            //             return;
-            //         }
-            //     }
-            //     for(let i in gp.axes) {
-            //         if(i === '9') continue;
-            //         let value = gp.axes[i];
-            //         if(Math.abs(value) > 0.5) {
-            //             let s = Math.sign(value);
-            //             let v = activeMapping.axes[i] || ['none','none'];
-            //             s = 1-((s+1)/2);
-            //             v[s] = currentButton;
-            //             activeMapping.axes[i] = v;
-            //             currentButton = '';
-            //             return;
-            //         }
-            //     }
-            // }
+            console.log(currentButton);
+            if(REMAPMODE && currentButton !== '') {
+                // debugger;
+                let gp = pads[0];
+                console.log(gp)
+                        for(let i in gp.buttons) {
+                            if(gp.buttons[i].value > 0.5) {
+                                activeMapping.buttons[i] = currentButton;
+                                currentButton = '';
+                                return;
+                            }
+                        }
+                        for(let i in gp.axes) {
+                            if(i === '9') continue;
+                            let value = gp.axes[i];
+                            if(Math.abs(value) > 0.5) {
+                                let s = Math.sign(value);
+                                let v = activeMapping.axes[i] || ['none','none'];
+                                s = 1-((s+1)/2);
+                                v[s] = currentButton;
+                                activeMapping.axes[i] = v;
+                                currentButton = '';
+                                return;
+                            }
+                        }
+            }
         })
         reg('onGpMapUpdated', (name: string, map: GamepadMapping) => {
             refreshMapings()
@@ -132,11 +134,9 @@
             currentInputs = Object.fromEntries(inputMod)
         }
 
-        if(once) {
-            newmappingname = 'testificate'
-            makeNewMapping()
-            once = false
-        }
+        newmappingname = 'testificate'
+        makeNewMapping()
+        needsRunning = false
     }
 
 setTimeout(() => {
@@ -160,7 +160,6 @@ function remapButtonPress(inputkey) {
     }
 }
 
-let newmappingname = ''
 $: console.log(newmappingname)
 function modMappingName() {
     return `User: ${newmappingname}`
@@ -197,7 +196,7 @@ function cloneCurrentMapping() {
     <div>Button Input Mapper</div>
     {#each Object.entries(currentInputs) as [a,b]}
         {#if a !== "none"}
-            <button on:click={remapButtonPress(a)} class="buttonrep {a}" style="--pressed-amt:{b}">{a}</button>   
+            <button on:click={remapButtonPress(a)} class="buttonrep {a}" class:tbMapped={currentButton === a} style="--pressed-amt:{b}">{a}</button>   
         {/if}
     {/each}
 </div>
@@ -210,8 +209,9 @@ function cloneCurrentMapping() {
     <button on:click={cloneCurrentMapping}>Clone Current</button>
     <input type="text" placeholder="New Mapping Name" bind:value={newmappingname}>
 <p>Then, press one of the buttons under "Button Input Mapper", then press a button on the active gamepad.</p>
-    {#if pokit}
-        <MapperUI gpMapper={gamepadmappings}></MapperUI>
+    {#if activeMapping}
+        <!-- <MapperUI gpMapper={gamepadmappings} bind:pokit></MapperUI> -->
+        <MapperUI bind:activeMapping bind:activeMappingName bind:pokit></MapperUI>
     {/if}
 {/if}
 
@@ -228,6 +228,9 @@ function cloneCurrentMapping() {
         background-color: hsla(0, calc(100% * var(--pressed-amt)), 50%, 1);
         padding: unset;
         margin: unset;
+    }
+    #buttonreppers button.buttenrep.tbMapped {
+        border: 1px white solid;
     }
     button.buttonrep.up {
         padding-left: 5ch;

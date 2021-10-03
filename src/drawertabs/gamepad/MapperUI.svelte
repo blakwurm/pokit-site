@@ -1,10 +1,16 @@
 <script lang='ts'>
     import type { GamepadMappings, GamepadMapping, GpInfo } from "../../pokittypes/modules/Engine/input/gamepad";
-    export let gpMapper: GamepadMappings
-    let activeMapping: GamepadMapping
-    $: activeMapping = gpMapper.mapping
-    let activeMappingName: string 
-    $: activeMappingName = gpMapper.mappingName
+    import type { PokitOS } from "../../pokittypes/pokit";
+    // export let pokit: PokitOS
+    // export let gpMapper: GamepadMappings
+    // let activeMapping: GamepadMapping
+    // $: activeMapping = gpMapper.mapping
+    // let activeMappingName: string 
+    // $: activeMappingName = gpMapper.mappingName
+
+    export let pokit: PokitOS
+    export let activeMapping: GamepadMapping
+    export let activeMappingName: string 
 
     let deadzone: number = deadzone_to_normalized(activeMapping?.deadzone)
     const deadzone_scale_strength = 4
