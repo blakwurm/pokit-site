@@ -4,7 +4,7 @@
     import type { PokitOS } from "../pokittypes/pokit";
     import MapperUI from './gamepad/MapperUI.svelte'
 
-let newmappingname = ''
+    let newmappingname = ''
     console.log('gamepads', navigator.getGamepads())
 
     let REMAPMODE = true
@@ -89,34 +89,6 @@ let newmappingname = ''
             refreshGamepads()
             refreshActiveGamepad()
         })
-        reg('onGamepadInput', (pads: Gamepad[]) => {
-            console.log(currentButton);
-            if(REMAPMODE && currentButton !== '') {
-                // debugger;
-                let gp = pads[0];
-                console.log(gp)
-                        for(let i in gp.buttons) {
-                            if(gp.buttons[i].value > 0.5) {
-                                activeMapping.buttons[i] = currentButton;
-                                currentButton = '';
-                                return;
-                            }
-                        }
-                        for(let i in gp.axes) {
-                            if(i === '9') continue;
-                            let value = gp.axes[i];
-                            if(Math.abs(value) > 0.5) {
-                                let s = Math.sign(value);
-                                let v = activeMapping.axes[i] || ['none','none'];
-                                s = 1-((s+1)/2);
-                                v[s] = currentButton;
-                                activeMapping.axes[i] = v;
-                                currentButton = '';
-                                return;
-                            }
-                        }
-            }
-        })
         reg('onGpMapUpdated', (name: string, map: GamepadMapping) => {
             refreshMapings()
             refreshActiveMapping()
@@ -126,7 +98,6 @@ let newmappingname = ''
             refreshActiveMapping()
         })
         reg('onInputMapUpdated', (map:Map<String, number>)=>{
-            console.log('updated n shit')
             currentInputs = Object.fromEntries(map)
         })
         let inputMod = Pokit.modules.get('input') as Map<string, number>
@@ -211,7 +182,13 @@ function cloneCurrentMapping() {
 <p>Then, press one of the buttons under "Button Input Mapper", then press a button on the active gamepad.</p>
     {#if activeMapping}
         <!-- <MapperUI gpMapper={gamepadmappings} bind:pokit></MapperUI> -->
-        <MapperUI bind:activeMapping bind:activeMappingName bind:pokit></MapperUI>
+        <MapperUI 
+            bind:activeMapping 
+            bind:activeMappingName 
+            bind:pokit
+            bind:REMAPMODE
+            bind:currentButton
+        ></MapperUI>
     {/if}
 {/if}
 
@@ -229,8 +206,9 @@ function cloneCurrentMapping() {
         padding: unset;
         margin: unset;
     }
-    #buttonreppers button.buttenrep.tbMapped {
-        border: 1px white solid;
+    #buttonreppers button.tbMapped {
+        color: black;
+        background-color: white;
     }
     button.buttonrep.up {
         padding-left: 5ch;
