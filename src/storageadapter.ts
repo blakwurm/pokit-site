@@ -10,4 +10,10 @@ export default function start_adapter(pokit: PokitOS) {
     reg('loadSetting', (key: string, obj: {value:IJsonTypes})=>{
         obj.value = JSON.parse(localStorage.getItem(key))
     })
+    reg('querySettings', (ns: string, arr: string[])=>{
+        for(let i = 0; i < localStorage.length; i++) {
+            let key = localStorage.key(i);
+            if(key.startsWith(ns))arr.push(key.substring(ns.length, key.length - ns.length));
+        }
+    })
 }
