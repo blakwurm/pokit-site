@@ -7,6 +7,7 @@
 	import Input from './Input.svelte'
 	import Drawer from './Drawer.svelte'
 	import {atomic_hue} from './sitesettings.js'
+	import startadapter from './storageadapter.js'
 
 	console.log(atomic_hue)
 	$: document.body.style.setProperty('--theme-hue', $atomic_hue+'deg')
@@ -48,6 +49,7 @@
 		// it's ready to go from ready to running
 		let [one, two] = await pokitinit({canvas})
 		pokit = one as PokitOS
+		startadapter(pokit)
 		kickoff = two as () => Promise<void>
 		// If the activated variable is already
 		// set to truthy, it means that we
@@ -57,6 +59,7 @@
 			clasp_button_press()
 		}
 	}) 
+
 
 	async function clasp_button_press() {
 		// We only want to do this if the kickoff

@@ -1,5 +1,6 @@
 <script lang='ts'>
     import type { GamepadMappings, GamepadMapping, GpInfo } from "../../pokittypes/modules/Engine/input/gamepad";
+    import type { Settings } from "../../pokittypes/modules/Engine/storage/storage";
     import type { PokitOS } from "../../pokittypes/pokit";
     // export let pokit: PokitOS
     // export let gpMapper: GamepadMappings
@@ -13,6 +14,10 @@
     export let activeMappingName: string 
     export let REMAPMODE: boolean
     export let currentButton: string
+
+    $: if (activeMapping) {
+        saveMapping()
+    }
 
     let ishat = false
 
@@ -66,6 +71,14 @@
 
     function refreshMapping() {
         activeMapping = Object.assign({}, activeMapping)
+    }
+
+    let saver = (pokit.modules.get('Settings') as Settings).path('@pokit/site/gpmappings')
+
+    function saveMapping() {
+        if (activeMappingName.startsWith('User: ')) {
+            saver.set(activeMappingName, activeMapping as any)
+        }
     }
     
     function deleteMappingAxis(a) {
