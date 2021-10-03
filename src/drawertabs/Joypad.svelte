@@ -105,8 +105,8 @@
             currentInputs = Object.fromEntries(inputMod)
         }
 
-        newmappingname = 'testificate'
-        makeNewMapping()
+        // newmappingname = 'testificate'
+        // makeNewMapping()
         needsRunning = false
     }
 

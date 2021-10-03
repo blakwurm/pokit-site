@@ -8,6 +8,8 @@
 	import Drawer from './Drawer.svelte'
 	import {atomic_hue} from './sitesettings.js'
 	import startadapter from './storageadapter.js'
+	import type { Settings } from './pokittypes/modules/Engine/storage/storage';
+	import type { GamepadMapping, GamepadMappings } from './pokittypes/modules/Engine/input/gamepad';
 
 	console.log(atomic_hue)
 	$: document.body.style.setProperty('--theme-hue', $atomic_hue+'deg')
@@ -50,6 +52,7 @@
 		let [one, two] = await pokitinit({canvas})
 		pokit = one as PokitOS
 		startadapter(pokit)
+		loadGpMappings(pokit)
 		kickoff = two as () => Promise<void>
 		// If the activated variable is already
 		// set to truthy, it means that we
@@ -59,6 +62,16 @@
 			clasp_button_press()
 		}
 	}) 
+
+	function loadGpMappings(pokit: PokitOS) {
+		let gpm = pokit.modules.get<GamepadMappings>('GamepadMappings')
+		let sto = pokit.modules.get<Settings>('Settings').path('@pokit/site/gpmappings')
+		let mappings = sto.getAll()
+		console.log(mappings)
+		for (let [name, mapping] of Object.entries(mappings)) {
+			gpm.set(name, mapping as GamepadMapping)
+		}
+	}
 
 
 	async function clasp_button_press() {

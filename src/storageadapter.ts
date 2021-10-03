@@ -13,7 +13,7 @@ export default function start_adapter(pokit: PokitOS) {
     reg('querySettings', (ns: string, arr: string[])=>{
         for(let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
-            if(key.startsWith(ns))arr.push(key.substring(ns.length, key.length - ns.length));
+            if(key.startsWith(ns))arr.push(key.substr(ns.length))//.substring(ns.length, ns.length - key.length));
         }
     })
 }
